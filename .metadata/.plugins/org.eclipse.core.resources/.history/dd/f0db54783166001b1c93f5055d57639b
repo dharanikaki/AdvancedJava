@@ -1,0 +1,92 @@
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.List;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
+
+
+public class CSVDataAccess {
+	private List<CSVUser> user1;
+	public List<CSVUser> getMunDetails(){
+
+		try {
+			BufferedReader fileReader = new BufferedReader(new FileReader("./App 6 MunExp.csv"));
+
+			CsvToBean<CSVUser> csvToBean = new CsvToBeanBuilder<CSVUser>(fileReader)
+					.withType(CSVUser.class)
+					.withIgnoreLeadingWhiteSpace(true)
+					.build();
+
+			List<CSVUser> csvUsers = csvToBean.parse();
+			user1 = csvUsers;
+
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return user1;
+	}
+
+	public void yearwise(List<CSVUser> u){
+		int year;
+		int sumrev = 0;
+		int sumexp = 0;
+
+
+		for(year = 1979; year <= 1987; year++){
+			sumrev = 0;
+			sumexp = 0;
+			for(CSVUser user: u){
+				String y = user.getYear();
+				int yr = Integer.parseInt(y);
+				if(year == yr){
+
+					int r = Integer.parseInt(user.getRev());
+					int e = Integer.parseInt(user.getExp());
+					sumrev = sumrev + r;
+					sumexp = sumexp + e;
+
+				}
+			}
+			System.out.println("Yearwise exp and rev in the year:"+year);
+			System.out.println("revenue sum:"+sumrev);
+			System.out.println("expenditure sum:"+sumexp);
+		}
+	}
+	public void categorywise(List<CSVUser> u){
+		int category;
+		int sumrev = 0;
+		int sumexp = 0;
+
+
+		for(category = 114; category <= 1315; category++){
+			sumrev = 0;
+			sumexp = 0;
+			int d = 0;
+			for(CSVUser user: u){
+				
+				String c = user.getCategory();
+				int ca = Integer.parseInt(c);
+				if(category == ca){
+					d = 1;
+					int r = Integer.parseInt(user.getRev());
+					int e = Integer.parseInt(user.getExp());
+					sumrev = sumrev + r;
+					sumexp = sumexp + e;
+
+				}
+				else if(category != ca){
+					
+				}
+			}
+			if(d == 1){
+			System.out.println("category exp and rev :"+category);
+			System.out.println("revenue sum:"+sumrev);
+			System.out.println("expenditure sum:"+sumexp);
+		}
+			
+		}
+	}
+}

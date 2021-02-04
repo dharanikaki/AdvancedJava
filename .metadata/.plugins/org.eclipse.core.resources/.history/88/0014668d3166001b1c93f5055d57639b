@@ -1,0 +1,23 @@
+
+import java.util.List;
+import java.util.Scanner;
+
+public class Demo {
+
+	public static void main(String[] args) {
+		
+		// TODO Auto-generated method stub
+		CSVDataAccess obj = new CSVDataAccess();
+	
+		List<CSVUser> mun = obj.getMunDetails();
+		
+		
+		obj.yearwise(mun);
+		obj.categorywise(mun);
+		
+		
+		
+	}
+
+
+}
